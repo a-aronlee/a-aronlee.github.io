@@ -4,11 +4,235 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aaron Lee</title>
-</head>
-<body style="background: #000000; color: #FFFFFF; font-family: Georgia, serif; text-align: center; padding-top: 100px;">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000000; color: #FFFFFF; font-family: Georgia, serif; overflow-x: hidden; }
 
-  <h1>AARON LEE</h1>
-  <p>Coming soon.</p>
+    nav {
+      background: #000;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .nav-logo {
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 0 20px rgba(255,255,255,0.7);
+    }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: #FFFFFF; }
+
+    .hero {
+      position: relative;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .columns-layer {
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 24px;
+      pointer-events: none;
+    }
+    .col { width: 40px; display: flex; flex-direction: column; }
+    .col-cap {
+      height: 22px;
+      background: #FFFFFF;
+      border-radius: 4px 4px 0 0;
+      box-shadow: 0 0 16px rgba(255,255,255,0.6);
+    }
+    .col-shaft {
+      flex: 1;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.55) 0px,
+        rgba(255,255,255,0.18) 4px,
+        rgba(255,255,255,0.45) 8px
+      );
+      border-left: 2px solid rgba(255,255,255,0.5);
+      border-right: 2px solid rgba(255,255,255,0.5);
+    }
+    .col-base {
+      height: 16px;
+      background: #FFFFFF;
+      border-radius: 0 0 4px 4px;
+      box-shadow: 0 0 16px rgba(255,255,255,0.6);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .hero-sub {
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .hero-title {
+      font-size: 48px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 0 40px rgba(255,255,255,0.9), 0 0 100px rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+    .white-line {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #FFFFFF, transparent);
+      margin: 0 auto;
+      box-shadow: 0 0 12px rgba(255,255,255,0.8);
+    }
+
+    .marquee-wrap {
+      background: #000;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 11px 0;
+    }
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marqueeScroll 20s linear infinite;
+      width: max-content;
+    }
+    @keyframes marqueeScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-text {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 0 8px rgba(255,255,255,0.5);
+    }
+    .marquee-sep { margin: 0 16px; color: rgba(255,255,255,0.25); }
+
+    .cards-section {
+      background: #000;
+      padding: 2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+    .card {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-top: 2px solid rgba(255,255,255,0.8);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .card-date {
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 13px;
+      color: #FFFFFF;
+      line-height: 1.5;
+    }
+    .card-tag {
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">Aaron Lee</span>
+    <div class="nav-links">
+      <a href="#">Writing</a>
+      <a href="#">Best of</a>
+      <a href="#">Now</a>
+      <a href="#">About</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="columns-layer">
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+    </div>
+    <div class="hero-content">
+      <span class="hero-sub">Aaron Lee</span>
+      <div class="hero-title">AARON LEE</div>
+      <div class="white-line"></div>
+    </div>
+  </div>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-text">
+        <span>Writing</span><span class="marquee-sep">·</span>
+        <span>Ideas</span><span class="marquee-sep">·</span>
+        <span>Life</span><span class="marquee-sep">·</span>
+        <span>Music</span><span class="marquee-sep">·</span>
+        <span>Math</span><span class="marquee-sep">·</span>
+        <span>Savannah</span><span class="marquee-sep">·</span>
+        <span>Science</span><span class="marquee-sep">·</span>
+        <span>Stories</span><span class="marquee-sep">·</span>
+        <span>Writing</span><span class="marquee-sep">·</span>
+        <span>Ideas</span><span class="marquee-sep">·</span>
+        <span>Life</span><span class="marquee-sep">·</span>
+        <span>Music</span><span class="marquee-sep">·</span>
+        <span>Math</span><span class="marquee-sep">·</span>
+        <span>Savannah</span><span class="marquee-sep">·</span>
+        <span>Science</span><span class="marquee-sep">·</span>
+        <span>Stories</span><span class="marquee-sep">·</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards-section">
+    <div class="card">
+      <div class="card-date">May 2026</div>
+      <div class="card-title">The first time I played in front of 3,000 people</div>
+      <div class="card-tag">#music</div>
+    </div>
+    <div class="card">
+      <div class="card-date">Apr 2026</div>
+      <div class="card-title">A math problem that broke my brain</div>
+      <div class="card-tag">#math</div>
+    </div>
+    <div class="card">
+      <div class="card-date">Mar 2026</div>
+      <div class="card-title">What Savannah doesn't know about itself</div>
+      <div class="card-tag">#life</div>
+    </div>
+  </div>
 
 </body>
 </html>

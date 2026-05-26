@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Of — Aaron Lee</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000000; color: #FFFFFF; font-family: Georgia, serif; }
+
+    nav {
+      background: #000;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .nav-logo {
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-decoration: none;
+      text-shadow: 0 0 20px rgba(255,255,255,0.7);
+    }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: #FFFFFF; }
+    .nav-links a.active { color: #FFFFFF; }
+
+    .page-header {
+      padding: 3rem 2rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .page-header h1 {
+      font-size: 32px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+    }
+
+    .bestof-grid {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .bestof-card {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-top: 2px solid #FFFFFF;
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .bestof-num {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    .bestof-title {
+      font-size: 18px;
+      color: #FFFFFF;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      text-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+
+    .bestof-excerpt {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .bestof-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bestof-date {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+
+    .bestof-tag {
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.08em;
+    }
+
+    .why-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      margin-top: 14px;
+      margin-bottom: 4px;
+    }
+
+    .why-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.6;
+      border-left: 1px solid rgba(255,255,255,0.1);
+      padding-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Aaron Lee</a>
+    <div class="nav-links">
+      <a href="writing.html">Writing</a>
+      <a href="bestof.html" class="active">Best of</a>
+      <a href="#">Now</a>
+      <a href="#">About</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Best Of</h1>
+    <p>6 pieces · chosen by Aaron</p>
+  </div>
+
+  <div class="bestof-grid">
+
+    <div class="bestof-card">
+      <div class="bestof-num">No. 62</div>
+      <div class="bestof-title">The Freedom Poem</div>
+      <div class="bestof-excerpt">"Freedom is raising my hand in class, even if my answer is wrong."</div>
+      <div class="bestof-meta">
+        <span class="bestof-date">May 2026 · 6th grade</span>
+        <span class="bestof-tag">#poetry</span>
+      </div>
+      <div class="why-label">Why this one</div>
+      <div class="why-text">7 drafts to get it right. The line about raising your hand is the most personal thing in the whole collection.</div>
+    </div>
+
+    <div class="bestof-card">
+      <div class="bestof-num">No. 5</div>
+      <div class="bestof-title">The Lonely Tennis Ball</div>
+      <div class="bestof-excerpt">"I always feel hopeful when a person comes in the court, but feel hopeless when I see that it is not my owner."</div>
+      <div class="bestof-meta">
+        <span class="bestof-date">Aug 2025 · 5th grade</span>
+        <span class="bestof-tag">#tennis</span>
+      </div>
+      <div class="why-label">Why this one</div>
+      <div class="why-text">Writing from inside an object is hard. This one nails it — the emotion is real even though the narrator isn't human.</div>
+    </div>
+
+    <div class="bestof-card">
+      <div class="bestof-num">No. 35</div>
+      <div class="bestof-title">The Enforcer's Perspective</div>
+      <div class="bestof-excerpt">"Everyone thinks bad about me. As the enforcer of the mines — who might? Nobody knows my backstory."</div>
+      <div class="bestof-meta">
+        <span class="bestof-date">Jan 2026 · 6th grade</span>
+        <span class="bestof-tag">#science</span>
+      </div>
+      <div class="why-label">Why this one</div>
+      <div class="why-text">Writing the villain with empathy takes maturity. Most writers don't try this. Aaron did.</div>
+    </div>
+
+    <div class="bestof-card">
+      <div class="bestof-num">No. 30</div>
+      <div class="bestof-title">A Day in the Life of My Invention</div>
+      <div class="bestof-excerpt">"Every day we kids work at the cobalt mines trying to help our families."</div>
+      <div class="bestof-meta">
+        <span class="bestof-date">Jan 2026 · 6th grade</span>
+        <span class="bestof-tag">#science</span>
+      </div>
+      <div class="why-label">Why this one</div>
+      <div class="why-text">Real research, real empathy, cinematic storytelling. The enforcer arriving with a gun is unforgettable.</div>
+    </div>
+
+    <div class="bestof-card">
+      <div class="bestof-num">No. 55</div>
+      <div class="bestof-title">A Day in My Life</div>
+      <div class="bestof-excerpt">"Pink juice drizzles down the plate. The meat melts in my mouth."</div>
+      <div class="bestof-meta">
+        <span class="bestof-date">May 2026 · 6th grade</span>
+        <span class="bestof-tag">#life</span>
+      </div>
+      <div class="why-label">Why this one</div>
+      <div class="why-text">The sensory writing here is the most mature in the whole collection. You can taste and smell every scene.</div>
+    </div>
+
+    <div class="bestof-card">
+      <div class="bestof-num">No. 38</div>
+      <div class="bestof-title">The Time Shop</div>
+      <div class="bestof-excerpt">"One day, after another long boring school day, Jim walks through a muddy path and notices a shop he has never seen before."</div>
+      <div class="bestof-meta">
+        <span class="bestof-date">Feb 2026 · 6th grade</span>
+        <span class="bestof-tag">#story</span>
+      </div>
+      <div class="why-label">Why this one</div>
+      <div class="why-text">A whole universe built across multiple stories. The shopkeeper, the powers, the consequences — it's a real world.</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

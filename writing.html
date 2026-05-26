@@ -7,7 +7,6 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #000000; color: #FFFFFF; font-family: Georgia, serif; }
-
     nav {
       background: #000;
       padding: 14px 24px;
@@ -34,7 +33,6 @@
     }
     .nav-links a:hover { color: #FFFFFF; }
     .nav-links a.active { color: #FFFFFF; }
-
     .page-header {
       padding: 3rem 2rem 2rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -49,9 +47,7 @@
     .page-header p {
       font-size: 13px;
       color: rgba(255,255,255,0.4);
-      letter-spacing: 0.05em;
     }
-
     .filter-bar {
       padding: 1rem 2rem;
       border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -69,11 +65,12 @@
       background: transparent;
       color: rgba(255,255,255,0.4);
       cursor: pointer;
-      transition: all 0.15s;
     }
-    .filter-btn:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.6); }
-    .filter-btn.active { color: #FFFFFF; border-color: #FFFFFF; background: rgba(255,255,255,0.08); }
-
+    .filter-btn.active {
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+      background: rgba(255,255,255,0.08);
+    }
     .grade-divider {
       padding: 10px 2rem;
       font-size: 10px;
@@ -83,9 +80,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
       background: rgba(255,255,255,0.02);
     }
-
     .writing-list { padding: 0 2rem; }
-
     .piece {
       padding: 1.2rem 0;
       border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -93,17 +88,14 @@
       gap: 1.5rem;
       align-items: flex-start;
       cursor: pointer;
-      transition: opacity 0.15s;
     }
-    .piece:hover { opacity: 0.75; }
+    .piece:hover .piece-title { text-shadow: 0 0 20px rgba(255,255,255,0.5); }
     .piece.hidden { display: none; }
-
     .piece-date {
       font-size: 11px;
       color: rgba(255,255,255,0.25);
       min-width: 70px;
       margin-top: 3px;
-      letter-spacing: 0.05em;
     }
     .piece-body { flex: 1; }
     .piece-title {
@@ -121,14 +113,66 @@
     .piece-tag {
       font-size: 10px;
       color: rgba(255,255,255,0.25);
-      letter-spacing: 0.06em;
     }
     .piece-num {
       font-size: 20px;
       color: rgba(255,255,255,0.08);
       min-width: 36px;
       text-align: right;
-      margin-top: 2px;
+    }
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .popup-overlay.open { display: flex; }
+    .popup-box {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-top: 2px solid #FFFFFF;
+      border-radius: 6px;
+      max-width: 640px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+    }
+    .popup-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      font-size: 20px;
+      cursor: pointer;
+      font-family: Georgia, serif;
+    }
+    .popup-close:hover { color: #FFFFFF; }
+    .popup-date {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .popup-title {
+      font-size: 22px;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+      line-height: 1.3;
+      text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+    .popup-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.9;
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -150,20 +194,20 @@
   </div>
 
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filter('all')">All</button>
-    <button class="filter-btn" onclick="filter('story')">Story</button>
-    <button class="filter-btn" onclick="filter('life')">Life</button>
-    <button class="filter-btn" onclick="filter('persuasive')">Persuasive</button>
-    <button class="filter-btn" onclick="filter('science')">Science</button>
-    <button class="filter-btn" onclick="filter('tennis')">Tennis</button>
-    <button class="filter-btn" onclick="filter('music')">Music</button>
-    <button class="filter-btn" onclick="filter('poetry')">Poetry</button>
+    <button class="filter-btn active" onclick="filter('all', this)">All</button>
+    <button class="filter-btn" onclick="filter('story', this)">Story</button>
+    <button class="filter-btn" onclick="filter('life', this)">Life</button>
+    <button class="filter-btn" onclick="filter('persuasive', this)">Persuasive</button>
+    <button class="filter-btn" onclick="filter('science', this)">Science</button>
+    <button class="filter-btn" onclick="filter('tennis', this)">Tennis</button>
+    <button class="filter-btn" onclick="filter('music', this)">Music</button>
+    <button class="filter-btn" onclick="filter('poetry', this)">Poetry</button>
   </div>
 
   <div class="grade-divider">6th Grade · 2025–2026</div>
   <div class="writing-list">
 
-    <div class="piece" data-tag="poetry" onclick="openPopup('The Freedom Poem')">
+    <div class="piece" data-tag="poetry" onclick="open62()">
       <div class="piece-date">May 2026</div>
       <div class="piece-body">
         <div class="piece-title">The Freedom Poem</div>
@@ -173,27 +217,27 @@
       <div class="piece-num">62</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open55()">
       <div class="piece-date">May 2026</div>
       <div class="piece-body">
         <div class="piece-title">A Day in My Life</div>
-        <div class="piece-excerpt">I wake up at 6:30 to the sound of my alarm clock going off.</div>
+        <div class="piece-excerpt">Pink juice drizzles down the plate. The meat melts in my mouth.</div>
         <div class="piece-tag">#life</div>
       </div>
       <div class="piece-num">55</div>
     </div>
 
-    <div class="piece" data-tag="tennis" onclick="openPopup('The Lonely Tennis Ball')">
+    <div class="piece" data-tag="tennis" onclick="open51()">
       <div class="piece-date">Apr 2026</div>
       <div class="piece-body">
         <div class="piece-title">How To Get Better At Tennis</div>
-        <div class="piece-excerpt">Many people struggle with tennis but with practice and these tips anyone can improve.</div>
+        <div class="piece-excerpt">Many people struggle with tennis but with practice anyone can improve.</div>
         <div class="piece-tag">#tennis</div>
       </div>
       <div class="piece-num">51</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open49()">
       <div class="piece-date">Apr 2026</div>
       <div class="piece-body">
         <div class="piece-title">My Room</div>
@@ -203,7 +247,7 @@
       <div class="piece-num">49</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open48()">
       <div class="piece-date">Apr 2026</div>
       <div class="piece-body">
         <div class="piece-title">A Mistake I Made and What I Learned</div>
@@ -213,7 +257,7 @@
       <div class="piece-num">48</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open46()">
       <div class="piece-date">Mar 2026</div>
       <div class="piece-body">
         <div class="piece-title">My Chattanooga Adventure</div>
@@ -223,7 +267,7 @@
       <div class="piece-num">46</div>
     </div>
 
-    <div class="piece" data-tag="persuasive">
+    <div class="piece" data-tag="persuasive" onclick="open45()">
       <div class="piece-date">Mar 2026</div>
       <div class="piece-body">
         <div class="piece-title">Why Everyone Should Learn Coding</div>
@@ -233,7 +277,7 @@
       <div class="piece-num">45</div>
     </div>
 
-    <div class="piece" data-tag="persuasive">
+    <div class="piece" data-tag="persuasive" onclick="open44()">
       <div class="piece-date">Mar 2026</div>
       <div class="piece-body">
         <div class="piece-title">My Argument for Longer Recess</div>
@@ -243,27 +287,17 @@
       <div class="piece-num">44</div>
     </div>
 
-    <div class="piece" data-tag="science">
+    <div class="piece" data-tag="science" onclick="open43()">
       <div class="piece-date">Feb 2026</div>
       <div class="piece-body">
         <div class="piece-title">How Does a 3D Printer Work</div>
-        <div class="piece-excerpt">A 3D printer is a cube shaped box that can make 3D things. It can print about anything.</div>
+        <div class="piece-excerpt">A 3D printer can print about anything. It works kind of like a hot glue gun.</div>
         <div class="piece-tag">#science</div>
       </div>
       <div class="piece-num">43</div>
     </div>
 
-    <div class="piece" data-tag="story">
-      <div class="piece-date">Feb 2026</div>
-      <div class="piece-body">
-        <div class="piece-title">The Last Person on Earth</div>
-        <div class="piece-excerpt">I woke up to still silence. Usually the clunk of the muns downstairs are heard.</div>
-        <div class="piece-tag">#story</div>
-      </div>
-      <div class="piece-num">46</div>
-    </div>
-
-    <div class="piece" data-tag="story">
+    <div class="piece" data-tag="story" onclick="open40()">
       <div class="piece-date">Feb 2026</div>
       <div class="piece-body">
         <div class="piece-title">The Unexpected Superpower</div>
@@ -273,17 +307,7 @@
       <div class="piece-num">40</div>
     </div>
 
-    <div class="piece" data-tag="story">
-      <div class="piece-date">Feb 2026</div>
-      <div class="piece-body">
-        <div class="piece-title">The Magic Well</div>
-        <div class="piece-excerpt">Waking up I see that I am in a different world that looks like the world from the Lorax.</div>
-        <div class="piece-tag">#story</div>
-      </div>
-      <div class="piece-num">39</div>
-    </div>
-
-    <div class="piece" data-tag="story">
+    <div class="piece" data-tag="story" onclick="open38()">
       <div class="piece-date">Feb 2026</div>
       <div class="piece-body">
         <div class="piece-title">The Time Shop</div>
@@ -293,7 +317,7 @@
       <div class="piece-num">38</div>
     </div>
 
-    <div class="piece" data-tag="science">
+    <div class="piece" data-tag="science" onclick="open35()">
       <div class="piece-date">Jan 2026</div>
       <div class="piece-body">
         <div class="piece-title">The Enforcer's Perspective</div>
@@ -303,47 +327,17 @@
       <div class="piece-num">35</div>
     </div>
 
-    <div class="piece" data-tag="science">
-      <div class="piece-date">Jan 2026</div>
-      <div class="piece-body">
-        <div class="piece-title">Comparing Renewable Energy Solutions</div>
-        <div class="piece-excerpt">Hydropower and the wheel. They're both great renewable energy solutions.</div>
-        <div class="piece-tag">#science</div>
-      </div>
-      <div class="piece-num">34</div>
-    </div>
-
-    <div class="piece" data-tag="science">
+    <div class="piece" data-tag="science" onclick="open30()">
       <div class="piece-date">Jan 2026</div>
       <div class="piece-body">
         <div class="piece-title">A Day in the Life of My Invention</div>
-        <div class="piece-excerpt">At the crack of dawn, me and the rest of the kids walk to the cobalt mines.</div>
+        <div class="piece-excerpt">At the crack of dawn, we walk to the cobalt mines.</div>
         <div class="piece-tag">#science</div>
       </div>
       <div class="piece-num">30</div>
     </div>
 
-    <div class="piece" data-tag="story">
-      <div class="piece-date">Dec 2025</div>
-      <div class="piece-body">
-        <div class="piece-title">The Boy Who Forgot Everything</div>
-        <div class="piece-excerpt">After I traded my talents for time travel I gotten worse at everything.</div>
-        <div class="piece-tag">#story</div>
-      </div>
-      <div class="piece-num">27</div>
-    </div>
-
-    <div class="piece" data-tag="persuasive">
-      <div class="piece-date">Dec 2025</div>
-      <div class="piece-body">
-        <div class="piece-title">Should Students Be Paid for Good Grades?</div>
-        <div class="piece-excerpt">Some people pay students if they get good grades. I think that this is a good idea.</div>
-        <div class="piece-tag">#persuasive</div>
-      </div>
-      <div class="piece-num">27</div>
-    </div>
-
-    <div class="piece" data-tag="science">
+    <div class="piece" data-tag="science" onclick="open28()">
       <div class="piece-date">Dec 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Invention That Could Save the World</div>
@@ -353,7 +347,7 @@
       <div class="piece-num">28</div>
     </div>
 
-    <div class="piece" data-tag="story">
+    <div class="piece" data-tag="story" onclick="open38b()">
       <div class="piece-date">Dec 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Time Shop (Part 1)</div>
@@ -363,37 +357,17 @@
       <div class="piece-num">24</div>
     </div>
 
-    <div class="piece" data-tag="music">
+    <div class="piece" data-tag="music" onclick="open21()">
       <div class="piece-date">Dec 2025</div>
       <div class="piece-body">
         <div class="piece-title">Hard Work Always Beats Talent</div>
-        <div class="piece-excerpt">One day I was playing the violin. Wanting to play games I hurried and rushed to finish.</div>
+        <div class="piece-excerpt">One day I was playing the violin. Wanting to play games I hurried to finish.</div>
         <div class="piece-tag">#music</div>
       </div>
       <div class="piece-num">21</div>
     </div>
 
-    <div class="piece" data-tag="persuasive">
-      <div class="piece-date">Dec 2025</div>
-      <div class="piece-body">
-        <div class="piece-title">The Most Dangerous Subject in School</div>
-        <div class="piece-excerpt">Teachers, as you know many kids get hurt while playing football at recess.</div>
-        <div class="piece-tag">#persuasive</div>
-      </div>
-      <div class="piece-num">23</div>
-    </div>
-
-    <div class="piece" data-tag="story">
-      <div class="piece-date">Nov 2025</div>
-      <div class="piece-body">
-        <div class="piece-title">The Magical Book</div>
-        <div class="piece-excerpt">Flipping through the pages I see that most of the pages are intact.</div>
-        <div class="piece-tag">#story</div>
-      </div>
-      <div class="piece-num">20</div>
-    </div>
-
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open18()">
       <div class="piece-date">Nov 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Hurricane Trip to Washington D.C.</div>
@@ -403,17 +377,17 @@
       <div class="piece-num">18</div>
     </div>
 
-    <div class="piece" data-tag="story">
+    <div class="piece" data-tag="story" onclick="open16()">
       <div class="piece-date">Nov 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Copper Door</div>
-        <div class="piece-excerpt">A shiny object glittering in the sun catches my eye. It looks like a rock, but won't budge.</div>
+        <div class="piece-excerpt">A shiny object glittering in the sun catches my eye. It looks like a rock but won't budge.</div>
         <div class="piece-tag">#story</div>
       </div>
       <div class="piece-num">16</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open15()">
       <div class="piece-date">Nov 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Camping Trip</div>
@@ -423,7 +397,7 @@
       <div class="piece-num">15</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open14()">
       <div class="piece-date">Oct 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Pumpkin Patch</div>
@@ -433,7 +407,7 @@
       <div class="piece-num">14</div>
     </div>
 
-    <div class="piece" data-tag="story">
+    <div class="piece" data-tag="story" onclick="open11()">
       <div class="piece-date">Oct 2025</div>
       <div class="piece-body">
         <div class="piece-title">Moving — A New Beginning</div>
@@ -448,7 +422,7 @@
   <div class="grade-divider">5th Grade · 2024–2025</div>
   <div class="writing-list">
 
-    <div class="piece" data-tag="tennis">
+    <div class="piece" data-tag="tennis" onclick="open5()">
       <div class="piece-date">Aug 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Lonely Tennis Ball</div>
@@ -458,7 +432,7 @@
       <div class="piece-num">5</div>
     </div>
 
-    <div class="piece" data-tag="story">
+    <div class="piece" data-tag="story" onclick="open6()">
       <div class="piece-date">Aug 2025</div>
       <div class="piece-body">
         <div class="piece-title">The Graveyard Dream</div>
@@ -468,7 +442,7 @@
       <div class="piece-num">6</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open1()">
       <div class="piece-date">Aug 2025</div>
       <div class="piece-body">
         <div class="piece-title">A Day with My Friend</div>
@@ -478,7 +452,7 @@
       <div class="piece-num">1</div>
     </div>
 
-    <div class="piece" data-tag="life">
+    <div class="piece" data-tag="life" onclick="open2()">
       <div class="piece-date">Aug 2025</div>
       <div class="piece-body">
         <div class="piece-title">Korea Summer Trip</div>
@@ -490,30 +464,44 @@
 
   </div>
 
+  <!-- Popup -->
+  <div id="popup" class="popup-overlay" onclick="handleOverlayClick(event)">
+    <div class="popup-box">
+      <button class="popup-close" onclick="closePopup()">✕</button>
+      <div id="popup-date" class="popup-date"></div>
+      <div id="popup-title" class="popup-title"></div>
+      <div id="popup-text" class="popup-text"></div>
+    </div>
+  </div>
+
   <script>
-    // Filter function
-    function filter(tag) {
-      const pieces = document.querySelectorAll('.piece');
-      const buttons = document.querySelectorAll('.filter-btn');
-
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-
-      pieces.forEach(piece => {
-        if (tag === 'all' || piece.dataset.tag === tag) {
-          piece.classList.remove('hidden');
+    function showPopup(date, title, text) {
+      document.getElementById('popup-date').textContent = date;
+      document.getElementById('popup-title').textContent = title;
+      document.getElementById('popup-text').textContent = text;
+      document.getElementById('popup').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePopup() {
+      document.getElementById('popup').classList.remove('open');
+      document.body.style.overflow = 'auto';
+    }
+    function handleOverlayClick(e) {
+      if (e.target.id === 'popup') closePopup();
+    }
+    function filter(tag, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.piece').forEach(p => {
+        if (tag === 'all' || p.dataset.tag === tag) {
+          p.classList.remove('hidden');
         } else {
-          piece.classList.add('hidden');
+          p.classList.add('hidden');
         }
       });
     }
 
-    // Popup data
-    const essays = {
-      "The Freedom Poem": {
-        date: "May 2026",
-        tag: "#poetry",
-        text: `In 1776, a nation lit a spark
+    function open62() { showPopup('May 2026 · #poetry', 'The Freedom Poem', `In 1776, a nation lit a spark
 Because of 56 men that dreamt of a mark
 I use this spark every day
 When I vote, write, and say
@@ -532,119 +520,254 @@ They both depend on each other
 
 Thank you America for letting me be free
 To write these exact words, to speak, to dream
-And to be who I want to be`
-      },
-      "The Lonely Tennis Ball": {
-        date: "Aug 2025",
-        tag: "#tennis",
-        text: `"Crack! I hit the fence. "Good shot!" The boy says. He runs over and hits me back to the other side. After I hit the fence again the boy asks his dad if he can go home and eat dinner. Picking me up his dad says "leave the ball it's not ours". This is what happens to me everyday. People use me but they don't take me. I've gone through a lot. Going over the fence, getting hit over 90 miles an hour and getting hit by rain. I'm just a lonely tennis ball.
+And to be who I want to be`); }
 
-Once I was a tennis ball in a basket. I had an owner, but one day he left me. He never came back to get me. I always feel hopeful when a person comes in the court, but feel hopeless when I see that it is not my owner. I always feel sad and gloomy when I am in the rain. I have very small hope that my owner will come.`
-      },
-      "The Enforcer's Perspective": {
-        date: "Jan 2026",
-        tag: "#science",
-        text: `Everyone thinks bad about me. As the enforcer of the mines who might? Nobody knows my backstory. I was a kid who worked for the mines trying to help my family. The day my dad grew sick, he would lay on the bed for the whole day, unable to move.
-
-Maybe the original enforcer was caught taking cobalt and selling it. He was fired on the spot. A job offer popped up for it and I took it so I could pay the medicine bills for my dad. I've always felt bad whipping a child. But to keep my job I had to do it.
-
-My dad has been getting better. Around town I noticed a new group of kids walking around. Usually new people don't come to a middle of nowhere town so something was odd. My boss told me to keep an eye on them.
-
-During the moment I felt a tinge of sadness. We never had electricity in our village; is it right to destroy our only chance?`
-      },
-      "A Day in the Life of My Invention": {
-        date: "Jan 2026",
-        tag: "#science",
-        text: `At the crack of dawn, me and the rest of the kids that live in the village walk to the cobalt mines. Instead of going to school we work and mine cobalt from the mines. It is backbreaking work, from the crack of dawn to the evening all filled with work. We do this so we can help our families, just a little.
-
-Cobalt is a material that is needed in high tech things like computers or tablets or more. We live in the DRC or Democratic Republic of the Congo. It supplies 60% of cobalt.
-
-But it's not easy work: big hours, excruciating conditions, scorching weather and much more.
-
-"Why are you children not in mines?!"
-Oh no, that's the enforcer.
-"We are making electricity," said the young geniuses.
-"Good luck on that," the army leader said and with a laugh he retreated.
-
-With electricity we now don't work in the mines. We do whatever we want. After school of course! Most of us do what our dreams are. And with electricity it seems possible.`
-      },
-      "A Day in My Life": {
-        date: "May 2026",
-        tag: "#life",
-        text: `I wake up at 6:30 to the sound of my alarm clock going off. The bright glare of the sun reaches me through the window. My mom's voice drifts up from downstairs. "Aaron, are you up?"
+    function open55() { showPopup('May 2026 · #life', 'A Day in My Life', `I wake up at 6:30 to the sound of my alarm clock going off. The bright glare of the sun reaches me through the window. My mom's voice drifts up from downstairs. "Aaron, are you up?"
 "Yes." I mumble quietly, mostly to myself.
 
-The sound of the plates clinking drifts up from downstairs followed by the faint smell of eggs and bacon. I throw my blanket off of me and step out of bed onto the soft heated carpeted floor. Its soft presence makes me want to go back to bed.
+The sound of the plates clinking drifts up from downstairs followed by the faint smell of eggs and bacon. I throw my blanket off of me and step out of bed onto the soft heated carpeted floor. Its soft presence makes me want to go back to bed. Knowing that I will be late if I go to sleep, I groggily saunter down the stairs.
 
-At tennis practice my coach places an orange cone in the middle of the court. "This is the pros warmup. You aim at the cone. It's practicing your control."
+My coach places an orange cone in the middle of the court. "This is the pros warmup. You aim at the cone. It's practicing your control."
 
 For dinner I eat steak. It is medium rare, just how I like it. I cut into the meat. Pink juice drizzles down the plate. The meat melts in my mouth. It is so tender, rich, and savory.
 
-Before bed I read the book that I am reading right now. Somehow, I get lost in the book and fall asleep. Same routine, different day.`
-      },
-      "The Time Shop": {
-        date: "Feb 2026",
-        tag: "#story",
-        text: `One day, after another long boring school day, Jim walks through a muddy path to his house. Today as he walks down the path, he catches a mysterious shop in the corner of his eyes. The wood covered thing looks like it will collapse at any second.
+Before bed I read the book that I am reading right now. Somehow, I get lost in the book and fall asleep. Same routine, different day.`); }
 
-From the outside of the shop, a mysterious voice tells Jim to come inside. He was trained not to listen to strangers, but he had a feeling to go inside.
+    function open51() { showPopup('Apr 2026 · #tennis', 'How To Get Better At Tennis', `When I first started tennis, I couldn't run, hit the ball over the net, or hit my serve in. Now, everything has changed. I can hit crazy aces during my tournament.
+
+Step 1: Practice your serve. The serve is the most important part of tennis. Having a strong serve makes it so that you can end the point in a couple shots. I always get my basket of 50 balls, set up cones on the corners of the box and hit my serves at the cones at the end of training.
+
+Step 2: Footwork. Footwork is important in your game, especially the split step. Before starting practice I run through a ladder making sure to get three steps in each section.
+
+Step 3: Consistency. Most tennis points don't end because of fast winners. They end because of unforced errors. Practice consistent deep shots that make it hard for your opponent.
+
+This training allowed me to transform from losing in the first round of a tournament to winning the tournament.`); }
+
+    function open49() { showPopup('Apr 2026 · #life', 'My Room', `My room is my favorite place to be. It has been the same since I was young, except for a few small changes like decorations. It has always been a safe place for me.
+
+My room has yellow, bumpy popcorn walls. Its vibrant colors make my body a little happier and lighter every day. My bed is comfy and cozy. My beanbag chair is also comfy and cozy. It is a great place to read a book, especially on a rainy day, because of the calming rhythmic thump of the droplets.
+
+There is a black desk in the corner with a gaming chair. On the desk is my collection of cool things — pop figures, trophies, a lego set, action figures, a rubber duck collection. Lastly there is one thing that I adore the most, my 2016 charizard holo. A friend gave it to me as a present.
+
+This place makes me feel peaceful, quiet, calm and relaxed. Here my mind goes blank and like a monk I feel meditated. My room will always be a treasure to me.`); }
+
+    function open48() { showPopup('Apr 2026 · #life', 'A Mistake I Made and What I Learned', `Last year, I thought I could ace a spelling test that I did not study for. I didn't realize that this was a big mistake.
+
+All of the past tests had been easy and I had aced every single one. Feeling like I did not have to study, I relaxed as my classmates studied hard. "Don't you need to study?" a girl asked. "I already studied," I replied.
+
+That day I went home and looked at the study guide. Once I took out the guide I gawked at the numbers and letters. Nothing on the sheet made sense to me.
+
+A week after the test my teacher gave me the test back. I stared at the test in horror. A big fat F was circled on the paper.
+
+From that moment I devoted myself to do my best on anything, not just tests, no matter how easy it seems or looks. Always be prepared for what's coming. Life's short, enjoy it while you have the time.`); }
+
+    function open46() { showPopup('Mar 2026 · #life', 'My Chattanooga Adventure', `Last week, my family and I drove to Atlanta for my brother's interview. At first I groaned, dreading the four hour drive there. I did not know that my trip would be a fun experience that would last.
+
+At the Museum of Illusions, we went into a room where the ground was tilted. Our brains think that the ground is flat, so we are unable to stand up straight. My favorite part was the spinning room — a tunnel with a pathway. The wall spun around as I walked across, making me unable to walk correctly.
+
+At Rock City Gardens, we squeezed through two rocks that formed a small opening. From a rest area, we could see seven states.
+
+At Ruby Falls, we descended 300 feet underground. As we got closer to the waterfall the sound of the water rushing down got louder and louder. Suddenly, the tour guide started counting down from ten, and at the end the waterfall was lit like it was the spotlight of a concert.
+
+It was a fun adventure that I will remember forever.`); }
+
+    function open45() { showPopup('Mar 2026 · #persuasive', 'Why Everyone Should Learn Coding', `In today's world, technology has become very important in our everyday lives. I believe that everyone should at least learn basic coding.
+
+First, learning coding increases career opportunities. Coding skills are needed across many industries. It is estimated that the demand related to coding will rise by 22% by 2029. High paying coding jobs, such as Machine Learning Engineers earn up to $160,000-$246,000 annually.
+
+Second, learning how to code improves critical thinking. Coding is where you break down complex things into smaller easy parts. It helps you to think outside the box.
+
+In conclusion, learning to code will benefit the future for young and bright kids. Schools should teach coding to all students. The future belongs to kids so we should try to brighten them as much as we can.`); }
+
+    function open44() { showPopup('Mar 2026 · #persuasive', 'My Argument for Longer Recess', `Many schools only give students 20 minutes of recess. I believe that schools should at least give students 30 minutes of outside time.
+
+First, longer recess increases focus. According to studies, by going outside you increase your focus by 20%. If you stay inside for too long your focus breaks. But if you add an outdoor break in-between classes you will be more alert and ready for class.
+
+Secondly, going outside boosts physical health. Did you know that an average kid gets less time outside than a prisoner? A survey of 12,000 parents across 10 countries found that one-third of children spend less than 30 minutes outside each day.
+
+In conclusion I believe that having a longer recess will have a bigger impact than saving those couple minutes to stay inside to learn. Overall increasing the recess is an obvious win.`); }
+
+    function open43() { showPopup('Feb 2026 · #science', 'How Does a 3D Printer Work', `A 3D printer is a cube shaped box that can make 3D things. It can print about anything. The 3D printer has two main parts, the extruder and the build plate.
+
+The first and most important part is the extruder. In an extruder a metal screw rotates to feed the filament into the nozzle. The nozzle is heated so the filament can be printed. It works kind of like a hot glue gun. Once the filament is melted it is put onto the build plate.
+
+The next important part is the build plate. The build plate is the foundation for the print. It is crucial because it works as a ground for the prints. Build plates also make it easier to peel prints off after printing.
+
+In conclusion, the 3D printer is an interesting type of technology. It can print anything by using the extruder to put filament onto the build plate.`); }
+
+    function open40() { showPopup('Feb 2026 · #story', 'The Unexpected Superpower', `I woke up with another boring school day ahead of me. But little did I know, that my day would be completely different than normal. At breakfast the potatoes on my plate started talking to me. "We've been trying to talk to you for a long time."
+
+At school as it got closer and closer to lunch I got more and more nervous. The lunch menu had an assortment of veggies. Muffled cries of help sounded from the trash cans. I covered my two ears through the whole lunch.
+
+Once I got home I decided that I would become a meat-atarian. From that day on I refrained from eating vegetables and only ate meats and fruits. When I couldn't stand the screaming during meals I would get headphones.
+
+But after a week the screams stopped and the talking stopped. That meant that I had lost my superpower.
+
+We are born the way we are born, and I don't want to change myself. Always be YOU.`); }
+
+    function open38() { showPopup('Feb 2026 · #story', 'The Time Shop', `One day, after another long boring school day, Jim walks through a muddy path to his house. Today he catches a mysterious shop in the corner of his eyes. The wood covered thing looks like it will collapse at any second.
+
+From the outside, a mysterious voice tells Jim to come inside. He was trained not to listen to strangers, but he had a feeling to go inside. Dimly lit lights surround the inside giving it a perfect mysterious flourish. Shelves and shelves of jars that look empty tower above him.
 
 "You can choose any jar in this shop if you trade me everything that you can do from walking to eating."
 
-He finds a jar labeled time travel and decides that that is the coolest power in the shop.
+He finds a jar labeled time travel. Like a spirit of a ghost, the air forces itself down his throat and merges into his body.
 
-Like a spirit of a ghost, the air forces itself down the throat of Jim's body and merges itself into the body.
+He rushed out, ran down the muddy path, not caring about the mud splashing everywhere. Then he felt himself shrinking with each step.
 
-One scary moment in a snap changed his whole life.`
-      }
-    };
+But he remembered his time powers. He thought hard about going back to when he was born. With going fast he was back in his messy bedroom in no time.
 
-    // Open popup
-    function openPopup(title) {
-      const essay = essays[title];
-      if (!essay) return;
-      document.getElementById('popup-title').textContent = title;
-      document.getElementById('popup-date').textContent = essay.date + ' · ' + essay.tag;
-      document.getElementById('popup-text').textContent = essay.text;
-      document.getElementById('popup').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
+One scary moment in a snap changed his whole life.`); }
 
-    // Close popup
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
+    function open35() { showPopup('Jan 2026 · #science', "The Enforcer's Perspective", `Everyone thinks bad about me. As the enforcer of the mines — who might? Nobody knows my backstory.
 
-    // Close on background click
-    document.getElementById('popup').addEventListener('click', function(e) {
-      if (e.target === this) closePopup();
-    });
-  </script>
-      const pieces = document.querySelectorAll('.piece');
-      const buttons = document.querySelectorAll('.filter-btn');
+I was a kid who worked for the mines trying to help my family. The day my dad grew sick, he would lay on the bed for the whole day, unable to move. A job offer popped up and I took it so I could pay the medicine bills for my dad. I've always felt bad whipping a child. But to keep my job I had to do it.
 
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+Around town I noticed a new group of kids walking around. My boss told me to keep an eye on them. Sure enough they are putting up wooden wheels on the side of houses.
 
-      pieces.forEach(piece => {
-        if (tag === 'all' || piece.dataset.tag === tag) {
-          piece.classList.remove('hidden');
-        } else {
-          piece.classList.add('hidden');
-        }
-      });
-    }
+At night we came and destroyed the solar panels using torch cutting pliers. During the moment I felt a tinge of sadness. We never had electricity in our village — is it right to destroy our only chance?`); }
+
+    function open30() { showPopup('Jan 2026 · #science', 'A Day in the Life of My Invention', `At the crack of dawn, me and the rest of the kids walk to the cobalt mines. Instead of going to school we work and mine cobalt. It is backbreaking work from the crack of dawn to the evening.
+
+Cobalt is a material needed in high tech things like computers or tablets. We live in the DRC — Democratic Republic of the Congo. It supplies 60% of cobalt.
+
+One day we had an unexpected visitor. They tumbled down our dirt path in a land rover. Out came a group of kids and two adults. "Hi we are a group of child prodigies fixing problems around the globe!"
+
+From a distance a few gunshots were fired. "Why are you children not in mines?!" Oh no, that's the enforcer.
+
+"We are making electricity," said the young geniuses.
+"Good luck on that," the army leader said, and with a laugh he retreated.
+
+With electricity we now don't work in the mines. Most of us do what our dreams are. And with electricity it seems possible.`); }
+
+    function open28() { showPopup('Dec 2025 · #science', 'The Invention That Could Save the World', `Most people know that a lot of places in the world do not have resources like we have — water, food, medicine, energy. I think that the most important thing of them all is energy.
+
+Making an invention that makes energy for cheap cost would probably fix all of the problems. Energy could filter dirty water, make more food packets, make medicine, and flush a toilet.
+
+The invention is simple. It is a wooden wheel about the size of a water wheel. It is connected on a steel hinge. It is waxed so it spins smoothly. All you have to do is give it a strong push and it will spin for a long time because of the wax.
+
+My invention will make small villages become cities, the poor become rich. It will light a fire that will spread with the opportunity to grow.
+
+If this works, it will be a great solution to end the world crisis. This invention should be built right away.`); }
+
+    function open38b() { showPopup('Dec 2025 · #story', 'The Time Shop (Part 1)', `As I was walking back from the torture of my school, I took the shortcut — an alley lined with stone bricks. Today was a gloomy day. In the mist, I saw a shop that I never noticed before.
+
+Inside, it had jars with wisping air with life coming in and out. "What are these?" I asked. "Lost memories, time, talents, and other things," the shopkeeper replied. She was almost transparent.
+
+One jar caught my eyes. It was the ability to pause, go back or go forward in time.
+
+"The price?" I asked.
+"The price is all your talents will be reset."
+"When?"
+"You have a day!"
+
+After a day I could not talk, walk or do anything. So I wound back time to where I was born so I could relive my life. Since I knew what was going to happen I made the best choices. I learned that I could live forever. I think that the price was worth the merchandise.`); }
+
+    function open21() { showPopup('Dec 2025 · #music', 'Hard Work Always Beats Talent', `One day I was playing the violin. Wanting to play games I hurried and rushed to finish. No matter how much I play the bad violin sound stays the same.
+
+"Never ever will I be good. There are people out there born with better talent than me — how will I ever be better than them?"
+
+"Hard work always beats talent!"
+"Who's there?"
+"Down here buddy. Your violin."
+
+I got sucked into the f holes. Suddenly I was at a music filled world. "This is the world of music. Everyone here is a great musician. I brought you here to get you touched by the conqueror — the best musician."
+
+When we met the conqueror he told me I had potential to be better than him. Every day I practiced hard — wake up, eat, lesson, practice, eat, practice, eat, sleep.
+
+After two years I was ready to go home. I was a pro. Hard work ALWAYS beats talent.`); }
+
+    function open18() { showPopup('Nov 2025 · #life', 'The Hurricane Trip to Washington D.C.', `At six in the morning my family jumped out of bed because of an unexpected alarm. A hurricane was coming. We decided to evacuate to Washington D.C.
+
+In the car my mom told us we were lucky to get a hotel. "There are many people that have the same plan." Washington is a ten-hour drive.
+
+When we arrived we went to the Smithsonian museum and saw amazing sights. We visited the monuments. The cold rock on the monument felt good.
+
+The next morning we woke up and went back to our house. It turned out that the hurricane did not touch us.
+
+This shows that a disaster could turn into a fun trip.`); }
+
+    function open16() { showPopup('Nov 2025 · #story', 'The Copper Door', `As I think to myself, it is another day to waste. A shiny object glittering in the sun catches my eyes. Looking closely, it looks like a rock, but when I kick it, it does not budge.
+
+With my hand, I uncover the surrounding dirt. A big wood panel is under the dirt. The "rock" is actually a copper door knob.
+
+When it opens I get knocked down and a brilliant light shines in all directions. Air sucks me in. Inside, two goblins holding spears block my path. I realize that the room is getting smaller.
+
+They are blind. I quickly make a plan. I throw my shoes in the opposite direction. While the goblins jab their spears at my shoes I use that moment to get through the door.
+
+I land on the dirt in my backyard. I bury the door, realizing that anything is possible.`); }
+
+    function open15() { showPopup('Nov 2025 · #life', 'The Camping Trip', `"Are you guys ready for an awesome trip?" We were heading to a campsite, ETA 4 hours.
+
+Suddenly I noticed there was no gas. The nearest gas station was 24 miles away! We had a reservation so we had to hurry.
+
+We gave up on calling a tow truck. We were losing hope until my mom found a piece of cardboard and wrote "Please help us get to the nearest gas station." I volunteered to hold the sign. The sound of cars passing made me flinch. My hair flew all over the place.
+
+Finally a van stopped. They towed us to the gas station, and as a gift we gave them 10 dollars.
+
+We reached the campsite and pitched our tent. Over the day we swam in the lake, made smores and fished. Feeling tired we ate dinner and crashed in our beds.`); }
+
+    function open14() { showPopup('Oct 2025 · #life', 'The Pumpkin Patch', `On a beautiful Sunday morning, I expected to relax after intense tennis practice. Instead, I got dragged to a pumpkin patch.
+
+It sounded terrible at first until my mom told me we were going to meet my friend. We saw the world winning pumpkin which was huge. I tried to pick it up, but it wouldn't budge.
+
+We found a corn crib — just a pit with many, many corn. We walked through the corn maze. Getting lost over and over again was aggravating, but we finally found the right path.
+
+My friend's dad bought a pepperoni pizza and we ate it. We went to the animal farm. Throwing handfuls of corn inside, the chickens ran to it.
+
+We said our goodbyes and went to Costco, but my friend met us there too. We played on the arcade games while our mothers shopped.`); }
+
+    function open11() { showPopup('Oct 2025 · #story', 'Moving — A New Beginning', `"Mom, do we have to go?" "Yes, it is the only option." I didn't know but this would be the start of my magical journey.
+
+When we arrived at our new house I gasped in horror. The paint was falling off, the windows were so dirty I couldn't see through them. From my room I could see that the backyard had a secret garden.
+
+The next day my mom said I had to go to school. Forcing myself to go, I thought: just be quiet until the end of school.
+
+It turns out that the school is only one block away. Walking to school I met a nice friend. I stayed with him the whole day.
+
+We planted flowers and vegetables in the garden. We became best friends in no time.
+
+Thinking that moving was bad led to a best friend that I would know until the end of my life.`); }
+
+    function open5() { showPopup('Aug 2025 · #tennis', 'The Lonely Tennis Ball', `"Crack! I hit the fence." "Good shot!" The boy says. He runs over and hits me back to the other side. After I hit the fence again the boy asks his dad if he can go home and eat dinner. Picking me up his dad says "leave the ball, it's not ours."
+
+This is what happens to me every day. People use me but they don't take me. I've gone through a lot. Going over the fence, getting hit over 90 miles an hour, and getting hit by rain. I'm just a lonely tennis ball.
+
+Once I was a tennis ball in a basket. I had an owner, but one day he left me. He never came back to get me.
+
+I always feel hopeful when a person comes in the court, but feel hopeless when I see that it is not my owner. I always feel sad and gloomy when I am in the rain.
+
+I have very small hope that my owner will come.`); }
+
+    function open6() { showPopup('Aug 2025 · #story', 'The Graveyard Dream', `"Howl!" the sound of the wind makes me jump. The fog covers what looks like a graveyard.
+
+Ouch! My head throbs as I stand up. As I walk I get a tingling sensation that someone is watching me. Quickly turning around I find that no one is there.
+
+Out of nowhere rain starts to pour. Crack! The thunder gives a chill down my spine. When the next lightning strikes, I get a good look at the whole place for a split second.
+
+Running for shelter I see a large tree out of the corner of my eye. The leaves block almost all the rain. Leaning against the trunk, I think to myself — how did I get here?
+
+While thinking, something tries to pull me down. I feel hopeless as I claw at the grass. Sucking me in, the ground closes above me.
+
+The next thing I know I am waking up safe in my cozy bed. Whew! It was just a dream after all.`); }
+
+    function open1() { showPopup('Aug 2025 · #life', 'A Day with My Friend', `Today I went to my friend's house. We both play the same game, so we played it for about 5 hours. We're both capable gamers.
+
+I congratulate him as he finishes off the last player. Then his mom asks us if we want to eat tteokbokki. We run downstairs and eat it. We are close friends and hardly ever dispute.
+
+We go upstairs and play more. As we lose the match we scream in outrage.
+
+Just then my mom rings the doorbell. We implore for more time so we get it. Eventually we leave. As I got in the car I say I had a good day.`); }
+
+    function open2() { showPopup('Aug 2025 · #life', 'Korea Summer Trip', `This is when I went to Korea for the summer. My dad told me that I will eventually go to a hotel next to the beach. I collected some seashells there. There was a pool there.
+
+Then we switched hotels. There was a buffet in the second one and a sauna. I went to the beach again. Then I went home and hiked up a mountain.
+
+I also went to a jumping battle where the ground has colors and you have to step on the green and blue. If you step on the red five times you lose.
+
+After three weeks we came home.`); }
+
   </script>
 
 </body>
-<!-- Popup -->
-  <div id="popup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.92); z-index:100; align-items:center; justify-content:center; padding:2rem;">
-    <div style="background:#0a0a0a; border:1px solid rgba(255,255,255,0.15); border-top:2px solid #FFFFFF; border-radius:6px; max-width:640px; width:100%; max-height:80vh; overflow-y:auto; padding:2rem; position:relative;">
-      <button onclick="closePopup()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; color:rgba(255,255,255,0.4); font-size:20px; cursor:pointer; font-family:Georgia,serif;">✕</button>
-      <div id="popup-date" style="font-size:11px; color:rgba(255,255,255,0.3); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;"></div>
-      <div id="popup-title" style="font-size:22px; color:#FFFFFF; margin-bottom:20px; line-height:1.3; text-shadow:0 0 20px rgba(255,255,255,0.3);"></div>
-      <div id="popup-text" style="font-size:14px; color:rgba(255,255,255,0.75); line-height:1.9; white-space:pre-wrap;"></div>
-    </div>
-  </div>
 </html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing — Aaron Lee</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000000; color: #FFFFFF; font-family: Georgia, serif; }
+
+    nav {
+      background: #000;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .nav-logo {
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-decoration: none;
+      text-shadow: 0 0 20px rgba(255,255,255,0.7);
+    }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: #FFFFFF; }
+    .nav-links a.active { color: #FFFFFF; }
+
+    .page-header {
+      padding: 3rem 2rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .page-header h1 {
+      font-size: 32px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+    }
+
+    .filter-bar {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-size: 11px;
+      font-family: Georgia, serif;
+      letter-spacing: 0.08em;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.6); }
+    .filter-btn.active { color: #FFFFFF; border-color: #FFFFFF; background: rgba(255,255,255,0.08); }
+
+    .grade-divider {
+      padding: 10px 2rem;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .writing-list { padding: 0 2rem; }
+
+    .piece {
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .piece:hover { opacity: 0.75; }
+    .piece.hidden { display: none; }
+
+    .piece-date {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      min-width: 70px;
+      margin-top: 3px;
+      letter-spacing: 0.05em;
+    }
+    .piece-body { flex: 1; }
+    .piece-title {
+      font-size: 15px;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .piece-excerpt {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .piece-tag {
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+    .piece-num {
+      font-size: 20px;
+      color: rgba(255,255,255,0.08);
+      min-width: 36px;
+      text-align: right;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Aaron Lee</a>
+    <div class="nav-links">
+      <a href="writing.html" class="active">Writing</a>
+      <a href="bestof.html">Best of</a>
+      <a href="#">Now</a>
+      <a href="#">About</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Writing</h1>
+    <p>60 pieces · 5th grade through 6th grade · 2025–2026</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filter('all')">All</button>
+    <button class="filter-btn" onclick="filter('story')">Story</button>
+    <button class="filter-btn" onclick="filter('life')">Life</button>
+    <button class="filter-btn" onclick="filter('persuasive')">Persuasive</button>
+    <button class="filter-btn" onclick="filter('science')">Science</button>
+    <button class="filter-btn" onclick="filter('tennis')">Tennis</button>
+    <button class="filter-btn" onclick="filter('music')">Music</button>
+    <button class="filter-btn" onclick="filter('poetry')">Poetry</button>
+  </div>
+
+  <div class="grade-divider">6th Grade · 2025–2026</div>
+  <div class="writing-list">
+
+    <div class="piece" data-tag="poetry">
+      <div class="piece-date">May 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">The Freedom Poem</div>
+        <div class="piece-excerpt">In 1776, a nation lit a spark. Because of 56 men that dreamt of a mark.</div>
+        <div class="piece-tag">#poetry</div>
+      </div>
+      <div class="piece-num">62</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">May 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">A Day in My Life</div>
+        <div class="piece-excerpt">I wake up at 6:30 to the sound of my alarm clock going off.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">55</div>
+    </div>
+
+    <div class="piece" data-tag="tennis">
+      <div class="piece-date">Apr 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">How To Get Better At Tennis</div>
+        <div class="piece-excerpt">Many people struggle with tennis but with practice and these tips anyone can improve.</div>
+        <div class="piece-tag">#tennis</div>
+      </div>
+      <div class="piece-num">51</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Apr 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">My Room</div>
+        <div class="piece-excerpt">My room is my favorite place to be. It has always been a safe place for me.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">49</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Apr 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">A Mistake I Made and What I Learned</div>
+        <div class="piece-excerpt">Last year, I thought I could ace a spelling test that I did not study for.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">48</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Mar 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">My Chattanooga Adventure</div>
+        <div class="piece-excerpt">The waterfall was lit like it was the spotlight of a concert.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">46</div>
+    </div>
+
+    <div class="piece" data-tag="persuasive">
+      <div class="piece-date">Mar 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">Why Everyone Should Learn Coding</div>
+        <div class="piece-excerpt">In today's world, technology has become very important in our everyday lives.</div>
+        <div class="piece-tag">#persuasive</div>
+      </div>
+      <div class="piece-num">45</div>
+    </div>
+
+    <div class="piece" data-tag="persuasive">
+      <div class="piece-date">Mar 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">My Argument for Longer Recess</div>
+        <div class="piece-excerpt">Many schools only give students 20 minutes of recess. I believe we need more.</div>
+        <div class="piece-tag">#persuasive</div>
+      </div>
+      <div class="piece-num">44</div>
+    </div>
+
+    <div class="piece" data-tag="science">
+      <div class="piece-date">Feb 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">How Does a 3D Printer Work</div>
+        <div class="piece-excerpt">A 3D printer is a cube shaped box that can make 3D things. It can print about anything.</div>
+        <div class="piece-tag">#science</div>
+      </div>
+      <div class="piece-num">43</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Feb 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">The Last Person on Earth</div>
+        <div class="piece-excerpt">I woke up to still silence. Usually the clunk of the muns downstairs are heard.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">46</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Feb 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">The Unexpected Superpower</div>
+        <div class="piece-excerpt">I woke up with another boring school day ahead of me. Then the potatoes started talking.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">40</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Feb 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">The Magic Well</div>
+        <div class="piece-excerpt">Waking up I see that I am in a different world that looks like the world from the Lorax.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">39</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Feb 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">The Time Shop</div>
+        <div class="piece-excerpt">One day, after another long boring school day, Jim walks through a muddy path.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">38</div>
+    </div>
+
+    <div class="piece" data-tag="science">
+      <div class="piece-date">Jan 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">The Enforcer's Perspective</div>
+        <div class="piece-excerpt">Everyone thinks bad about me. Nobody knows my backstory.</div>
+        <div class="piece-tag">#science</div>
+      </div>
+      <div class="piece-num">35</div>
+    </div>
+
+    <div class="piece" data-tag="science">
+      <div class="piece-date">Jan 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">Comparing Renewable Energy Solutions</div>
+        <div class="piece-excerpt">Hydropower and the wheel. They're both great renewable energy solutions.</div>
+        <div class="piece-tag">#science</div>
+      </div>
+      <div class="piece-num">34</div>
+    </div>
+
+    <div class="piece" data-tag="science">
+      <div class="piece-date">Jan 2026</div>
+      <div class="piece-body">
+        <div class="piece-title">A Day in the Life of My Invention</div>
+        <div class="piece-excerpt">At the crack of dawn, me and the rest of the kids walk to the cobalt mines.</div>
+        <div class="piece-tag">#science</div>
+      </div>
+      <div class="piece-num">30</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Dec 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Boy Who Forgot Everything</div>
+        <div class="piece-excerpt">After I traded my talents for time travel I gotten worse at everything.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">27</div>
+    </div>
+
+    <div class="piece" data-tag="persuasive">
+      <div class="piece-date">Dec 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">Should Students Be Paid for Good Grades?</div>
+        <div class="piece-excerpt">Some people pay students if they get good grades. I think that this is a good idea.</div>
+        <div class="piece-tag">#persuasive</div>
+      </div>
+      <div class="piece-num">27</div>
+    </div>
+
+    <div class="piece" data-tag="science">
+      <div class="piece-date">Dec 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Invention That Could Save the World</div>
+        <div class="piece-excerpt">Most people know that a lot of places in the world do not have resources like we have.</div>
+        <div class="piece-tag">#science</div>
+      </div>
+      <div class="piece-num">28</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Dec 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Time Shop (Part 1)</div>
+        <div class="piece-excerpt">As I was walking back from the torture of school, I took the shortcut.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">24</div>
+    </div>
+
+    <div class="piece" data-tag="music">
+      <div class="piece-date">Dec 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">Hard Work Always Beats Talent</div>
+        <div class="piece-excerpt">One day I was playing the violin. Wanting to play games I hurried and rushed to finish.</div>
+        <div class="piece-tag">#music</div>
+      </div>
+      <div class="piece-num">21</div>
+    </div>
+
+    <div class="piece" data-tag="persuasive">
+      <div class="piece-date">Dec 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Most Dangerous Subject in School</div>
+        <div class="piece-excerpt">Teachers, as you know many kids get hurt while playing football at recess.</div>
+        <div class="piece-tag">#persuasive</div>
+      </div>
+      <div class="piece-num">23</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Nov 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Magical Book</div>
+        <div class="piece-excerpt">Flipping through the pages I see that most of the pages are intact.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">20</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Nov 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Hurricane Trip to Washington D.C.</div>
+        <div class="piece-excerpt">At six in the morning my family jumps out of bed because of an unexpected alarm.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">18</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Nov 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Copper Door</div>
+        <div class="piece-excerpt">A shiny object glittering in the sun catches my eye. It looks like a rock, but won't budge.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">16</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Nov 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Camping Trip</div>
+        <div class="piece-excerpt">My mom wrote "Please help us get to the nearest gas station" on cardboard.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">15</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Oct 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Pumpkin Patch</div>
+        <div class="piece-excerpt">It sounded terrible at first until my mom told me we were going to meet my friend.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">14</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Oct 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">Moving — A New Beginning</div>
+        <div class="piece-excerpt">I didn't know but this would be the start of my magical journey.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">11</div>
+    </div>
+
+  </div>
+
+  <div class="grade-divider">5th Grade · 2024–2025</div>
+  <div class="writing-list">
+
+    <div class="piece" data-tag="tennis">
+      <div class="piece-date">Aug 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Lonely Tennis Ball</div>
+        <div class="piece-excerpt">This is what happens to me every day. People use me but they don't take me.</div>
+        <div class="piece-tag">#tennis</div>
+      </div>
+      <div class="piece-num">5</div>
+    </div>
+
+    <div class="piece" data-tag="story">
+      <div class="piece-date">Aug 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">The Graveyard Dream</div>
+        <div class="piece-excerpt">The fog covers what looks like a graveyard. Something tries to pull me down.</div>
+        <div class="piece-tag">#story</div>
+      </div>
+      <div class="piece-num">6</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Aug 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">A Day with My Friend</div>
+        <div class="piece-excerpt">We both play the same game, so we played it for about 5 hours.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">1</div>
+    </div>
+
+    <div class="piece" data-tag="life">
+      <div class="piece-date">Aug 2025</div>
+      <div class="piece-body">
+        <div class="piece-title">Korea Summer Trip</div>
+        <div class="piece-excerpt">My dad told me that I will eventually go to a hotel next to the beach.</div>
+        <div class="piece-tag">#life</div>
+      </div>
+      <div class="piece-num">2</div>
+    </div>
+
+  </div>
+
+  <script>
+    function filter(tag) {
+      const pieces = document.querySelectorAll('.piece');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      pieces.forEach(piece => {
+        if (tag === 'all' || piece.dataset.tag === tag) {
+          piece.classList.remove('hidden');
+        } else {
+          piece.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

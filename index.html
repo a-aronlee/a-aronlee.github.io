@@ -228,9 +228,11 @@ nav {
       background: #000;
       padding: 2rem 1.5rem;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 14px;
     }
+    .card { cursor: pointer; }
+    .card:hover { border-top-color: rgba(255,255,255,1); background: #111; }
     .card {
       background: #0a0a0a;
       border: 1px solid rgba(255,255,255,0.1);
@@ -328,22 +330,48 @@ nav {
     </div>
   </div>
   <div class="cards-section">
-    <div class="card">
+    <div class="card" onclick="openPopup('May 2026 · #poetry', 'The Freedom Poem', `In 1776, a nation lit a spark\nBecause of 56 men that dreamt of a mark\nI use this spark every day\nWhen I vote, write, and say\n\nBy dumping bitter tea\nWe got sweet liberty\n\nFreedom is raising my hand in class\nEven if my answer is wrong\nFreedom is the rhythmic chanting of people protesting in the town square\n1,000 voices uniting to form one big voice to say what they think is right\n\nI believe that a good government listens to every voice.\nThe government is like a car, and the citizens are the driver.\nThey both depend on each other\n\nThank you America for letting me be free\nTo write these exact words, to speak, to dream\nAnd to be who I want to be`)">
       <div class="card-date">May 2026</div>
-      <div class="card-title">The first time I played in front of 3,000 people</div>
-      <div class="card-tag">#music</div>
+      <div class="card-title">The Freedom Poem</div>
+      <div class="card-tag">#poetry</div>
     </div>
-    <div class="card">
-      <div class="card-date">Apr 2026</div>
-      <div class="card-title">A math problem that broke my brain</div>
-      <div class="card-tag">#math</div>
+    <div class="card" onclick="openPopup('Aug 2025 · #tennis', 'The Lonely Tennis Ball', `Crack! I hit the fence. Good shot! The boy says. He runs over and hits me back to the other side. After I hit the fence again the boy asks his dad if he can go home and eat dinner. Picking me up his dad says leave the ball, it\'s not ours. This is what happens to me everyday. People use me but they don\'t take me. I\'ve gone through a lot. Going over the fence, getting hit over 90 miles an hour and getting hit by rain. I\'m just a lonely tennis ball.\n\nOnce I was a tennis ball in a basket. I had an owner, but one day he left me. He never came back to get me. I always feel hopeful when a person comes in the court, but feel hopeless when I see that it is not my owner. I always feel sad and gloomy when I am in the rain. I have very small hope that my owner will come.`)">
+      <div class="card-date">Aug 2025</div>
+      <div class="card-title">The Lonely Tennis Ball</div>
+      <div class="card-tag">#tennis</div>
     </div>
-    <div class="card">
-      <div class="card-date">Mar 2026</div>
-      <div class="card-title">What Savannah doesn't know about itself</div>
+    <div class="card" onclick="openPopup('May 2026 · #life', 'A Day in My Life', `I wake up at 6:30 to the sound of my alarm clock going off. The bright glare of the sun reaches me through the window. My mom\'s voice drifts up from downstairs. Aaron, are you up?\nYes. I mumble quietly, mostly to myself.\n\nThe sound of the plates clinking drifts up from downstairs followed by the faint smell of eggs and bacon. I throw my blanket off of me and step out of bed onto the soft heated carpeted floor. Its soft presence makes me want to go back to bed.\n\nMy coach places an orange cone in the middle of the court. This is the pros warmup. You aim at the cone. It\'s practicing your control.\n\nFor dinner I eat steak. It is medium rare, just how I like it. I cut into the meat. Pink juice drizzles down the plate. The meat melts in my mouth. It is so tender, rich, and savory.\n\nBefore bed I read the book that I am reading right now. Somehow, I get lost in the book and fall asleep. Same routine, different day.`)">
+      <div class="card-date">May 2026</div>
+      <div class="card-title">A Day in My Life</div>
       <div class="card-tag">#life</div>
+    </div>
+    <div class="card" onclick="openPopup('Feb 2026 · #story', 'The Time Shop', `One day, after another long boring school day, Jim walks through a muddy path to his house. Today as he walks down the path, he catches a mysterious shop in the corner of his eyes. The wood covered thing looks like it will collapse at any second.\n\nFrom the outside of the shop, a mysterious voice tells Jim to come inside. He was trained not to listen to strangers, but he had a feeling to go inside. Dimly lit lights surround the inside giving it a perfect mysterious flourish. Shelves and shelves of jars that look empty tower above him, but when he looks closer he sees that tiny wisps of air are stuck inside the jars.\n\nYou fell into my trap. I will not let you go until you make a trade with me. You can choose any jar in this shop if you trade me everything that you can do from walking to eating.\n\nHe finds a jar labeled time travel. Like a spirit of a ghost, the air forces itself down the throat of Jim\'s body and merges itself into the body.\n\nOne scary moment in a snap changed his whole life.`)">
+      <div class="card-date">Feb 2026</div>
+      <div class="card-title">The Time Shop</div>
+      <div class="card-tag">#story</div>
+    </div>
+  </div>
+<div id="popup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.93); z-index:100; align-items:center; justify-content:center; padding:2rem;" onclick="if(event.target===this)closePopup()">
+    <div style="background:#0a0a0a; border:1px solid rgba(255,255,255,0.15); border-top:2px solid #FFFFFF; border-radius:6px; max-width:640px; width:100%; max-height:80vh; overflow-y:auto; padding:2rem; position:relative;">
+      <button onclick="closePopup()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; color:rgba(255,255,255,0.4); font-size:20px; cursor:pointer;">✕</button>
+      <div id="popup-date" style="font-size:11px; color:rgba(255,255,255,0.3); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px;"></div>
+      <div id="popup-title" style="font-size:22px; color:#FFFFFF; margin-bottom:20px; line-height:1.3; text-shadow:0 0 20px rgba(255,255,255,0.3);"></div>
+      <div id="popup-text" style="font-size:14px; color:rgba(255,255,255,0.75); line-height:1.9; white-space:pre-wrap;"></div>
     </div>
   </div>
 
+  <script>
+    function openPopup(date, title, text) {
+      document.getElementById('popup-date').textContent = date;
+      document.getElementById('popup-title').textContent = title;
+      document.getElementById('popup-text').textContent = text;
+      document.getElementById('popup').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  </script>
 </body>
 </html>

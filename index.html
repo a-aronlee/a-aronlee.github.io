@@ -4,6 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aaron Lee</title>
+  @keyframes rotateSlow {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    @keyframes rotateReverse {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes glow {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 0.7; }
+    }
+
+    .deco-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+      top: 50%; left: 50%;
+    }
+    .deco-ring-1 {
+      width: 300px; height: 300px;
+      margin-left: -150px; margin-top: -150px;
+      border: 1px solid rgba(255,255,255,0.06);
+      animation: rotateSlow 20s linear infinite;
+      transform-origin: center;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .deco-ring-2 {
+      width: 480px; height: 480px;
+      border: 1px solid rgba(255,255,255,0.04);
+      animation: rotateReverse 30s linear infinite;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .deco-ring-3 {
+      width: 640px; height: 640px;
+      border: 1px dashed rgba(255,255,255,0.025);
+      animation: rotateSlow 45s linear infinite;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .deco-dots {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 480px; height: 480px;
+      pointer-events: none;
+    }
+    .deco-dots::before,
+    .deco-dots::after {
+      content: '✦';
+      position: absolute;
+      color: rgba(255,255,255,0.2);
+      font-size: 10px;
+      animation: glow 3s ease-in-out infinite;
+    }
+    .deco-dots::before { top: 0; left: 50%; animation-delay: 0s; }
+    .deco-dots::after  { bottom: 0; left: 50%; animation-delay: 1.5s; }
+
+    .hero-tagline {
+      margin-top: 14px;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      animation: float 4s ease-in-out infinite;
+    }
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #000000; color: #FFFFFF; font-family: Georgia, serif; overflow-x: hidden; }
@@ -177,7 +250,7 @@
     </div>
   </nav>
 
-  <div class="hero">
+ <div class="hero">
     <div class="columns-layer">
       <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
       <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
@@ -185,14 +258,24 @@
       <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
       <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
       <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
+      <div class="col"><div class="col-cap"></div><div class="col-shaft"></div><div class="col-base"></div></div>
     </div>
+
+    <div class="deco-ring deco-ring-1"></div>
+    <div class="deco-ring deco-ring-2"></div>
+    <div class="deco-ring deco-ring-3"></div>
+    <div class="deco-dots"></div>
+
     <div class="hero-content">
       <span class="hero-sub">Aaron Lee</span>
       <div class="hero-title">AARON LEE</div>
       <div class="white-line"></div>
+      <div class="hero-tagline">Writer · Thinker · Savannah, GA</div>
     </div>
   </div>
-
   <div class="marquee-wrap">
     <div class="marquee-track">
       <div class="marquee-text">

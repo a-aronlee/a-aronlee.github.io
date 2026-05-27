@@ -7,7 +7,6 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #000000; color: #FFFFFF; font-family: Georgia, serif; }
-
     nav {
       background: #000;
       padding: 14px 24px;
@@ -17,7 +16,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.12);
     }
     .nav-logo {
-      font-size: 16px;
+      font-size: 22px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #FFFFFF;
@@ -26,7 +25,7 @@
     }
     .nav-links { display: flex; gap: 20px; }
     .nav-links a {
-      font-size: 11px;
+      font-size: 16px;
       color: rgba(255,255,255,0.3);
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -34,7 +33,6 @@
     }
     .nav-links a:hover { color: #FFFFFF; }
     .nav-links a.active { color: #FFFFFF; }
-
     .page-header {
       padding: 3rem 2rem 2rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -49,31 +47,29 @@
     .page-header p {
       font-size: 13px;
       color: rgba(255,255,255,0.4);
-      letter-spacing: 0.05em;
     }
-
     .bestof-grid {
       padding: 2rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
-
     .bestof-card {
       background: #0a0a0a;
       border: 1px solid rgba(255,255,255,0.1);
       border-top: 2px solid #FFFFFF;
       border-radius: 6px;
       padding: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
     }
-
+    .bestof-card:hover { background: #111; }
     .bestof-num {
       font-size: 11px;
       color: rgba(255,255,255,0.2);
       letter-spacing: 0.1em;
       margin-bottom: 10px;
     }
-
     .bestof-title {
       font-size: 18px;
       color: #FFFFFF;
@@ -81,7 +77,6 @@
       margin-bottom: 12px;
       text-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
-
     .bestof-excerpt {
       font-size: 13px;
       color: rgba(255,255,255,0.45);
@@ -89,25 +84,21 @@
       margin-bottom: 14px;
       font-style: italic;
     }
-
     .bestof-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
     .bestof-date {
       font-size: 11px;
       color: rgba(255,255,255,0.25);
       letter-spacing: 0.06em;
     }
-
     .bestof-tag {
       font-size: 10px;
       color: rgba(255,255,255,0.25);
       letter-spacing: 0.08em;
     }
-
     .why-label {
       font-size: 10px;
       letter-spacing: 0.1em;
@@ -116,13 +107,72 @@
       margin-top: 14px;
       margin-bottom: 4px;
     }
-
     .why-text {
       font-size: 12px;
       color: rgba(255,255,255,0.35);
       line-height: 1.6;
       border-left: 1px solid rgba(255,255,255,0.1);
       padding-left: 10px;
+    }
+    .read-hint {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      margin-top: 14px;
+      letter-spacing: 0.06em;
+    }
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .popup-overlay.open { display: flex; }
+    .popup-box {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-top: 2px solid #FFFFFF;
+      border-radius: 6px;
+      max-width: 640px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+    }
+    .popup-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      font-size: 20px;
+      cursor: pointer;
+      font-family: Georgia, serif;
+    }
+    .popup-close:hover { color: #FFFFFF; }
+    .popup-date {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .popup-title {
+      font-size: 22px;
+      color: #FFFFFF;
+      margin-bottom: 20px;
+      line-height: 1.3;
+      text-shadow: 0 0 20px rgba(255,255,255,0.3);
+    }
+    .popup-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.9;
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -140,12 +190,12 @@
 
   <div class="page-header">
     <h1>Best Of</h1>
-    <p>6 pieces · chosen by Aaron</p>
+    <p>6 pieces · chosen by Aaron · click any card to read</p>
   </div>
 
   <div class="bestof-grid">
 
-    <div class="bestof-card">
+    <div class="bestof-card" onclick="open62()">
       <div class="bestof-num">No. 62</div>
       <div class="bestof-title">The Freedom Poem</div>
       <div class="bestof-excerpt">"Freedom is raising my hand in class, even if my answer is wrong."</div>
@@ -155,9 +205,10 @@
       </div>
       <div class="why-label">Why this one</div>
       <div class="why-text">7 drafts to get it right. The line about raising your hand is the most personal thing in the whole collection.</div>
+      <div class="read-hint">Click to read →</div>
     </div>
 
-    <div class="bestof-card">
+    <div class="bestof-card" onclick="open5()">
       <div class="bestof-num">No. 5</div>
       <div class="bestof-title">The Lonely Tennis Ball</div>
       <div class="bestof-excerpt">"I always feel hopeful when a person comes in the court, but feel hopeless when I see that it is not my owner."</div>
@@ -167,21 +218,23 @@
       </div>
       <div class="why-label">Why this one</div>
       <div class="why-text">Writing from inside an object is hard. This one nails it — the emotion is real even though the narrator isn't human.</div>
+      <div class="read-hint">Click to read →</div>
     </div>
 
-    <div class="bestof-card">
+    <div class="bestof-card" onclick="open35()">
       <div class="bestof-num">No. 35</div>
       <div class="bestof-title">The Enforcer's Perspective</div>
-      <div class="bestof-excerpt">"Everyone thinks bad about me. As the enforcer of the mines — who might? Nobody knows my backstory."</div>
+      <div class="bestof-excerpt">"Everyone thinks bad about me. Nobody knows my backstory."</div>
       <div class="bestof-meta">
         <span class="bestof-date">Jan 2026 · 6th grade</span>
         <span class="bestof-tag">#science</span>
       </div>
       <div class="why-label">Why this one</div>
       <div class="why-text">Writing the villain with empathy takes maturity. Most writers don't try this. Aaron did.</div>
+      <div class="read-hint">Click to read →</div>
     </div>
 
-    <div class="bestof-card">
+    <div class="bestof-card" onclick="open30()">
       <div class="bestof-num">No. 30</div>
       <div class="bestof-title">A Day in the Life of My Invention</div>
       <div class="bestof-excerpt">"Every day we kids work at the cobalt mines trying to help our families."</div>
@@ -191,9 +244,10 @@
       </div>
       <div class="why-label">Why this one</div>
       <div class="why-text">Real research, real empathy, cinematic storytelling. The enforcer arriving with a gun is unforgettable.</div>
+      <div class="read-hint">Click to read →</div>
     </div>
 
-    <div class="bestof-card">
+    <div class="bestof-card" onclick="open55()">
       <div class="bestof-num">No. 55</div>
       <div class="bestof-title">A Day in My Life</div>
       <div class="bestof-excerpt">"Pink juice drizzles down the plate. The meat melts in my mouth."</div>
@@ -203,9 +257,10 @@
       </div>
       <div class="why-label">Why this one</div>
       <div class="why-text">The sensory writing here is the most mature in the whole collection. You can taste and smell every scene.</div>
+      <div class="read-hint">Click to read →</div>
     </div>
 
-    <div class="bestof-card">
+    <div class="bestof-card" onclick="open38()">
       <div class="bestof-num">No. 38</div>
       <div class="bestof-title">The Time Shop</div>
       <div class="bestof-excerpt">"One day, after another long boring school day, Jim walks through a muddy path and notices a shop he has never seen before."</div>
@@ -215,9 +270,125 @@
       </div>
       <div class="why-label">Why this one</div>
       <div class="why-text">A whole universe built across multiple stories. The shopkeeper, the powers, the consequences — it's a real world.</div>
+      <div class="read-hint">Click to read →</div>
     </div>
 
   </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup-overlay" onclick="handleOverlayClick(event)">
+    <div class="popup-box">
+      <button class="popup-close" onclick="closePopup()">✕</button>
+      <div id="popup-date" class="popup-date"></div>
+      <div id="popup-title" class="popup-title"></div>
+      <div id="popup-text" class="popup-text"></div>
+    </div>
+  </div>
+
+  <script>
+    function showPopup(date, title, text) {
+      document.getElementById('popup-date').textContent = date;
+      document.getElementById('popup-title').textContent = title;
+      document.getElementById('popup-text').textContent = text;
+      document.getElementById('popup').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePopup() {
+      document.getElementById('popup').classList.remove('open');
+      document.body.style.overflow = 'auto';
+    }
+    function handleOverlayClick(e) {
+      if (e.target.id === 'popup') closePopup();
+    }
+
+    function open62() { showPopup('May 2026 · #poetry', 'The Freedom Poem',
+`In 1776, a nation lit a spark
+Because of 56 men that dreamt of a mark
+I use this spark every day
+When I vote, write, and say
+
+By dumping bitter tea
+We got sweet liberty
+
+Freedom is raising my hand in class
+Even if my answer is wrong
+Freedom is the rhythmic chanting of people protesting in the town square
+1,000 voices uniting to form one big voice to say what they think is right
+
+I believe that a good government listens to every voice.
+The government is like a car, and the citizens are the driver.
+They both depend on each other
+
+Thank you America for letting me be free
+To write these exact words, to speak, to dream
+And to be who I want to be`); }
+
+    function open5() { showPopup('Aug 2025 · #tennis', 'The Lonely Tennis Ball',
+`"Crack! I hit the fence." "Good shot!" The boy says. He runs over and hits me back to the other side. After I hit the fence again the boy asks his dad if he can go home and eat dinner. Picking me up his dad says "leave the ball it's not ours". This is what happens to me everyday. People use me but they don't take me. I've gone through a lot. Going over the fence, getting hit over 90 miles an hour and getting hit by rain. I'm just a lonely tennis ball.
+
+Once I was a tennis ball in a basket. I had an owner, but one day he left me. He never came back to get me. I always feel hopeful when a person comes in the court, but feel hopeless when I see that it is not my owner. I always feel sad and gloomy when I am in the rain. I have very small hope that my owner will come.`); }
+
+    function open35() { showPopup('Jan 2026 · #science', "The Enforcer's Perspective",
+`Everyone thinks bad about me. As the enforcer of the mines who might? Nobody knows my backstory. I was a kid who worked for the mines trying to help my family. The day my dad grew sick, he would lay on the bed for the whole day, unable to move. He was the man of the family, because he made all the money.
+
+Maybe the original enforcer was caught taking cobalt and selling it. He was fired on the spot. A job offer popped up for it and I took it so I could pay the medicine bills for my dad. I've always felt bad whipping a child. But to keep my job I had to do it.
+
+My dad has been getting better. Around town I noticed a new group of kids walking around. Usually new people don't come to a middle of nowhere town so something was odd. My boss told me to keep an eye on them. The next day no children came to the mines. Sure enough they are with the new kids putting up wooden wheels on the side of houses. I report this to the boss. He gets infuriated.
+
+Up in the sky a drone is taking high resolution pictures so we can see the area. We find the location of solar panels. At night we come and destroy them using torch cutting pliers. During the moment I felt a tinge of sadness. We never had electricity in our village — is it right to destroy our only chance?`); }
+
+    function open30() { showPopup('Jan 2026 · #science', 'A Day in the Life of My Invention',
+`At the crack of dawn, me and the rest of the kids that live in the village walk to the cobalt mines. Instead of going to school we work and mine cobalt from the mines. It is backbreaking work, from the crack of dawn to the evening all filled with work. We do this so we can help our families, just a little. It seems so little but we need everything we can get. Cobalt is a material that is needed in high tech things like computers or tablets or more. We live in the DRC or Democratic Republic of the Congo. It supplies 60% of cobalt.
+
+But it's not easy work: big hours, excruciating conditions, scorching weather and much more. Work in the morning and school at night has been the regular schedule. But a couple days ago our only school burnt down because someone accidentally knocked down an oil lamp.
+
+The next day we had an unexpected visitor. They tumbled down our dirt path in a land rover. Out came a group of kids and two adults! "Hi we are a group of child prodigies fixing problems around the globe!"
+
+"What are you going to fix here?"
+"Recently a spinning wheel was invented and it can produce massive amounts of energy!"
+
+From a distance a few gunshots were fired.
+"Why are you children not in mines?!"
+Oh no, that's the enforcer.
+"We are making electricity," said the young geniuses.
+"Good luck on that," the army leader said and with a laugh he retreated.
+
+The group finished covering the main path with gray tiles. They explained that when someone steps on the tiles the weight pumps a tiny pump connecting energy.
+
+The next day the group left as quickly and mysteriously as they came. With electricity we now don't work in the mines. We do whatever we want. After school of course! Most of us do what our dreams are. And with electricity it seems possible.`); }
+
+    function open55() { showPopup('May 2026 · #life', 'A Day in My Life',
+`I wake up at 6:30 to the sound of my alarm clock going off. The bright glare of the sun reaches me through the window. My mom's voice drifts up from downstairs. "Aaron, are you up?"
+"Yes." I mumble quietly, mostly to myself. The sound of the plates clinking drifts up from downstairs followed by the faint smell of eggs and bacon. I throw my blanket off of me and step out of bed onto the soft heated carpeted floor. Its soft presence makes me want to go back to bed. Knowing that I will be late if I go to sleep, I groggily saunter down the stairs. At the table I eat my delicious eggs and bacon quickly. I pack my backpack and get into the car.
+
+I say goodbye to my mom as she drops me off. Since school starts at 8:00 a.m., and it's 7:35, I'm early. Homeroom is flying by as I talk to my friends. "Hey" says Chase. "Did you study for the brain quiz?"
+"Yep." I reply. My next class, science, starts at 9:00. I studied for some time yesterday, but I still don't feel quite ready. I fly by the four multichoice questions. The question is, what is the function of the thalamus? I close my eyes and try to dig some files out of my brain. Finally, I remember that the thalamus relays info.
+
+Lunch time comes along and I walk into the noisy cafeteria. I grab one slice of cheese pizza and pour parmesan cheese all over it. The hot greasy pizza melts the sprinkled parmesan, making it glint under the light. To me, there is no such thing as too much parmesan.
+
+After school I have tennis practice at 4:30 pm. My coach places an orange cone in the middle of the court. "This is the pros warmup. You aim at the cone. It's practicing your control." I aim at the cone. It seems easy but it is harder than I thought. Practice is over. I can taste the salty sweat in my mouth.
+
+For dinner I eat steak. It is medium rare, just how I like it. I cut into the meat. Pink juice drizzles down the plate. The meat melts in my mouth. It is so tender, rich, and savory.
+
+Before bed I read the book that I am reading right now. Somehow, I get lost in the book and fall asleep. I have a dream that feels so real. I think that I am awake even when I'm not. Abruptly I wake to reality at 6:30 to my alarm clock screaming. Same routine, different day.`); }
+
+    function open38() { showPopup('Feb 2026 · #story', 'The Time Shop',
+`One day, after another long boring school day, Jim walks through a muddy path to his house. It is a great shortcut, reducing the time of the walk by 10 minutes because it cuts through the forest. Today as he walks down the path, he catches a mysterious shop in the corner of his eyes. The wood covered thing looks like it will collapse at any second.
+
+From the outside of the shop, a mysterious voice tells Jim to come inside. He was trained not to listen to strangers, but he had a feeling to go inside so he reluctantly agrees. When he goes in, he is amazed at the sight of the wood lined and polished inside. Dimly lit lights surround the inside giving it a perfect mysterious flourish. Shelves and shelves of jars that look empty tower above him, but when he looks closer he sees that tiny wisps of air are stuck inside the jars. Suddenly the lock on the door behind him makes a click.
+
+"You fell into my trap. I will not let you go until you make a trade with me. You can choose any jar in this shop if you trade me everything that you can do from walking to eating."
+
+Jim takes a long glance around the room. He finds a jar labeled time travel and decides that that is the coolest power in the shop. He nods, and with a quick and swift hand motion from the shopkeeper the lid from the jar abruptly opens. Like a spirit of a ghost, the air forces itself down the throat of Jim's body and merges itself into the body.
+
+The second the lock on the door opened, Jim quickly rushed out and ran down the muddy path, not caring about the mud splashing everywhere. But as he walks he can feel him shrinking with each step and eventually he is baby size — unable to walk, talk, or do anything. He is losing his talents.
+
+He tries to call for his mom but nothing comes out. Remembering his time powers he thinks hard about going back to when he was born. Suddenly he sees a bright light above him surrounded by white hospital walls. Once again he thinks hard about making time go 100x speed. With going fast he is back in his messy bedroom in no time.
+
+When he learns every talent that he can possibly learn he feels ready to go into the future. He lands in a futuristic city. Towering skyscrapers surround him. Hovering cars whizz above him. With his phone and notepad he takes pictures of everything and jots down notes of everything that looks interesting. He goes into the present and makes those futuristic ideas real and in no time he becomes a famous and rich person.
+
+One scary moment in a snap changed his whole life.`); }
+  </script>
 
 </body>
 </html>

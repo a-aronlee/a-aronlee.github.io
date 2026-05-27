@@ -196,11 +196,16 @@ nav {
       border-bottom: 1px solid rgba(255,255,255,0.1);
       padding: 11px 0;
     }
-    .marquee-track {
+  .marquee-track {
       display: flex;
       white-space: nowrap;
-      animation: marqueeScroll 20s linear infinite;
-      width: max-content;
+      animation: marqueeScroll 25s linear infinite;
+    }
+    .marquee-text {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      min-width: 100%;
     }
     @keyframes marqueeScroll {
       0%   { transform: translateX(0); }
@@ -299,6 +304,12 @@ nav {
         <span>Savannah</span><span class="marquee-sep">·</span>
         <span>Science</span><span class="marquee-sep">·</span>
         <span>Stories</span><span class="marquee-sep">·</span>
+        <span>Tennis</span><span class="marquee-sep">·</span>
+        <span>Poetry</span><span class="marquee-sep">·</span>
+        <span>Adventure</span><span class="marquee-sep">·</span>
+        <span>Dreams</span><span class="marquee-sep">·</span>
+      </div>
+      <div class="marquee-text" aria-hidden="true">
         <span>Writing</span><span class="marquee-sep">·</span>
         <span>Ideas</span><span class="marquee-sep">·</span>
         <span>Life</span><span class="marquee-sep">·</span>
@@ -307,10 +318,13 @@ nav {
         <span>Savannah</span><span class="marquee-sep">·</span>
         <span>Science</span><span class="marquee-sep">·</span>
         <span>Stories</span><span class="marquee-sep">·</span>
+        <span>Tennis</span><span class="marquee-sep">·</span>
+        <span>Poetry</span><span class="marquee-sep">·</span>
+        <span>Adventure</span><span class="marquee-sep">·</span>
+        <span>Dreams</span><span class="marquee-sep">·</span>
       </div>
     </div>
   </div>
-
   <div class="cards-section">
     <div class="card">
       <div class="card-date">May 2026</div>
